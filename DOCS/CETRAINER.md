@@ -58,12 +58,12 @@ Once the files are extracted, if a `.CETRAINER` file is found in the archive, th
 
 Some trainer developers have done minor modifications to the CETRAINER decryption algorithm described above, or packaging method as a stand-alone executable. Below is the list of all known modifications used by trainer developers:
 
-.-----------|--------------------------------------------------------------.
+
 | Trainers  | Documentation                                                |
 |-----------|--------------------------------------------------------------|
 | Barracuda | [/docs/cetrainer-barracuda.md](/docs/cetrainer-barracuda.md) |
 | MrAntiFun | [/docs/cetrainer-mrantifun.md](/docs/cetrainer-mrantifun.md) |
-.-----------|--------------------------------------------------------------.
+
 
 ## Sources
 
