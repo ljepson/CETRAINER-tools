@@ -67,7 +67,7 @@ my $twice_encrypted = CheatEngine::Trainer::Packer::encrypt(
 my $twice_decrypted = CheatEngine::Trainer::Unpacker::decrypt($twice_encrypted);
 is($twice_decrypted, $simple_xml, 'Multiple round-trips maintain data integrity');
 
-# Test 10: Cross-method compatibility check (encrypt with old, verify new can't decrypt it as new format)
+# Test 10: Verify unpacker handles old format correctly (auto-detects format)
 # Both methods should still work for decryption since unpacker auto-detects
 my $old_encrypted = CheatEngine::Trainer::Packer::encrypt($simple_xml, 0);
 my $old_to_new = CheatEngine::Trainer::Unpacker::decrypt($old_encrypted);
