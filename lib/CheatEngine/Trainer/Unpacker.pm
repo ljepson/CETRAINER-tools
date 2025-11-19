@@ -1,4 +1,4 @@
-package CheatEngine::Unpacker;
+package CheatEngine::Trainer::Unpacker;
 
 use strict;
 use warnings;
@@ -18,7 +18,7 @@ sub new {
 # Function wrapper for calling as a standalone function
 sub decrypt {
     my ($data) = @_;
-    
+
     # Create an instance and call the method
     my $unpacker = __PACKAGE__->new();
     return $unpacker->_decrypt($data);
@@ -27,10 +27,10 @@ sub decrypt {
 # The actual implementation as an object method
 sub _decrypt {
     my ($self, $data) = @_;
-    
+
     # Convert to a mutable array of bytes
     my @bytes = unpack("C*", $data);
-    
+
     my $result;
     if (substr($data, 0, 5) =~ /^<\?xml/) {
         print "    - Unprotected CETRAINER detected\n";
@@ -39,31 +39,31 @@ sub _decrypt {
     else {
         print "    - Protected CETRAINER detected. Decrypting...\n";
         my $ckey = 0xCE;
-        
+
         # First decryption step
         for (my $i = 2; $i < scalar(@bytes); $i++) {
             $bytes[$i] = $bytes[$i] ^ $bytes[$i-2];
         }
-        
+
         # Second decryption step
         for (my $i = scalar(@bytes) - 2; $i >= 0; $i--) {
             $bytes[$i] = $bytes[$i] ^ $bytes[$i+1];
         }
-        
+
         # Third decryption step
         for (my $i = 0; $i < scalar(@bytes); $i++) {
             $bytes[$i] = $bytes[$i] ^ $ckey;
             $ckey = ($ckey + 1) & 0xFF;
         }
-        
+
         my $output = "";
 
         # Rebuild the data
         $data = pack("C*", @bytes);
-        
+
         # Decompress
         my $inflator = Compress::Raw::Zlib::Inflate->new(-WindowBits => -15);
-        
+
         # New method
         if (substr($data, 0, 5) eq "CHEAT") {
             my $status = $inflator->inflate(substr($data, 5), $output);
@@ -88,7 +88,7 @@ sub _decrypt {
             }
         }
     }
-    
+
     return $result;
 }
 

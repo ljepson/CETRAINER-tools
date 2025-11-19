@@ -92,17 +92,17 @@ sub main {
     
     if ($input_type eq 'XML') {
         # Encrypt the data
-        require CheatEngine::Packer;
+        require CheatEngine::Trainer::Packer;
 
         print "Encrypting XML to CETRAINER format\n";
-        $result = CheatEngine::Packer::encrypt($data);
+        $result = CheatEngine::Trainer::Packer::encrypt($data);
     }
     else {
         # Decrypt the data
         print "Decrypting CETRAINER to XML format\n";
 
-        require CheatEngine::Unpacker;
-        $result = CheatEngine::Unpacker::decrypt($data);
+        require CheatEngine::Trainer::Unpacker;
+        $result = CheatEngine::Trainer::Unpacker::decrypt($data);
     }
         
     # Write the converted data
