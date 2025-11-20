@@ -114,10 +114,10 @@ if (!is_xml($xml_data) && !$no_decrypt) {
     print "Encrypted CETRAINER detected. Auto-decrypting...\n";
     
     # Load the decryption module
-    require CheatEngine::Unpacker;
-    
+    require CheatEngine::Trainer::Unpacker;
+
     # Decrypt the data
-    $xml_data = CheatEngine::Unpacker::decrypt($xml_data);
+    $xml_data = CheatEngine::Trainer::Unpacker::decrypt($xml_data);
     
     # Verify we got valid XML
     if (!is_xml($xml_data)) {
